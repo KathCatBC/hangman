@@ -22,35 +22,12 @@
 	// Get image for win (checkered flag perhaps)
 	// Get image for lose (crashed car perhaps)  
 	// Get a background image(s) (racetrack photo)
-//Plan A
-
-	// Create an Array with names (2D probably best - Provide the first name - have users guess last name)
-
-
-	// Plan B - using objects - it was worth staying late Saturday to learn this.
-
-     
-
-//start with 2 and then add more names
-// 	var F1Drivers = {
-// 		DriverA : {
-// 			FirstName: "Lewis",
-// 			LastName: "HAMILTON"
-// 			//DriverPhoto: if this works consider popping up and image of the driver win or lose
-// 		},  //Don't forget the comma
-// 		DriverB : {
-// 			FirstName: "Nico",
-// 			LastName: "ROSBERG", 
-// 		} 
-// }
 
 // Plan C - cannot seem to use a random number to pick from object list maybe you can and I just haven't figued it out/learned it yet
 		// so I will use a 1D array with first and last name separated by !
 		// use random number to pick from array.  use string functions to separate first & last names
 
 
-		var key = " "; //stores key of guessed letter
-	var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG"];
 	// "Sebastian!VETTEL", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
 
 
@@ -64,67 +41,102 @@
 
 	//part code and part debugging stuff 
 
-	console.log(F1Drivers.length);
-	var NumofGuess = 0
-	var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];			//generate random # to pick from the array of drivers
-	var MaxWrong = 10;	//max number of wrong guesses
-	var WrongLetters; //array to hold wrong letters guessed
-	//debug stuff
-	console.log ("# of drivers " + F1Drivers.length)
-	console.log("random = " + GuessDriver);
-	
+var NumofGuess = 0
+var key = "a"; //stores key letter 
+var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG"];
+var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     // picks a random driver from the array
+//splits first and last name of random chosen driver
 	var SplitName = GuessDriver.split("!"); 
 	var FirstName = SplitName[0];
 	var LastName = SplitName[1];
+
+var MaxWrong = 10;	//max number of wrong guesses  could be hardcoded
+var WrongLetters; //array to hold wrong letters guessed
+var l = 0 //loop counter
+	//debug stuff
+
+	console.log ("# of drivers " + F1Drivers.length)
+	console.log("random = " + GuessDriver);
 	console.log("Split = " + SplitName);
 	console.log("first = " + FirstName);
 	console.log("last = " + LastName);
-	var GuessLetters = LastName.split("");
-	console.log("letter = " + GuessLetters);
+	UpperLastName = LastName.toUpperCase();  ////Convert last name to uppercase for comparison purposes
+
+	
+
+	//var guessLetters = LastName.split("");  //splits last name into an arry
+	
+	var guessLetters = LastName
+	console.log("letter = " + guessLetters);
 // Display the correct number of dashes
+
 	document.write("Name the Forumula 1 Driver: <br>")
 	document.write(FirstName + "  ")
-	for (i = 0; i < GuessLetters.length; i++) {
+
+	//display the proper number of dashes for lastname
+	for (i = 0; i < guessLetters.length; i++) {
 		document.write("_ ")
 	}
 
 //Convert last name to uppercase for comparison purposes
-	var UpperLastName = LastName.toUpperCase();
-	console.log("Upper Case of Last Name " + UpperLastName);
+	
 
+ 	console.log("Upper Case of Last Name " + guessLetters);
+
+
+// get a letter from the user to start checking
  document.onkeyup = function(event){
 
-		key = document.onkeyup;
+
+ 		key = event.key;
 	 	console.log("pushed " + key);
 	 	// key2 = key.toUpperCase()
  		//console.log("key pressed = " + key)
  		// console.log("pushed " + key)
 
-
+ 	 // key = event.key
 	if (NumofGuess < MaxWrong) {
-		console.log(key)
-		console.log(UpperLastName)
-	 	console.log(UpperLastName.indexOf(key))
- 		if (UpperLastName.indexOf(key) != -1) {
- 			// letter is in last name must loop thru for duplicate letters
- 			for (l = UpperLastName.indexOf(key); l > UpperLastName.lastIndexOf(key); l++){
- 				//replace _ with letters 
- 				//for now just console log
- 				console.log("guessed a correct letter")
+		
+		var key2 = key.toUpperCase()
+		//var key2 = key
 
- 			}  //end of for
- 		}  //end of if 
- 			else {
- 				NumofGuess++
- 				//push letter to array of wrong guesses
- 				console.log("wrong guesses " + NumofGuess)
- 			}
- 		}
+		//key2 = key2.toUpperCase()
+		console.log("pushed letter " + key2)
+	 	
+
+	 	// After checking the letter need check to see if the user won!!!
+	 	// Need to check if the letter has been used already
+
+	 	// Need to check for non letter keys being pressed
+
+	 	//if index of the letter = -1 then it is an incorrect guess
+
+	 	// This if is failing it is acting like the key is not a string
+ 		if (guessLetters.indexOf(key2) == -1) {
+ 			// letter is in last name must loop thru for duplicate letters
+ 			console.log("guessed Wrong letter");
+ 			NumofGuess ++ ;
+ 			console.log("number of wrong guesses " + NumofGuess) ;
+ 			} else {
+ 				console.log("guessed a correct letter " + key2);
+ 				// for (l = 0; l < guessLetters.length; l++) {
+ 				// 	console.log("l = " + l)
+ 				// 	// if (guessLetters[l] == key2) {
+					// 	// console.log("letter " + key2 + " can be found in position " + l)
+ 				// 	// 	//replace _ with letters 
+ 				// 	// //for now just console log
+ 				//  // 	}  //end of if
+ 			 // 	}  //end of for
+ 			}  //end of else
+ 			
+ 		} // end of if
 
  		
 
 
-}
+} //end of function
+
+ // end of function
 //Create a function to get key input and update
 
 
