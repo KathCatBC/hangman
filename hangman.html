@@ -49,8 +49,8 @@
 		// use random number to pick from array.  use string functions to separate first & last names
 
 
-
-	var F1Drivers = ["Lewis!HAMILTON", "Niki!LAUDA", "Nico!ROSBERG"];
+		var key = " "; //stores key of guessed letter
+	var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG"];
 	// "Sebastian!VETTEL", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
 
 
@@ -65,13 +65,14 @@
 	//part code and part debugging stuff 
 
 	console.log(F1Drivers.length);
-
-	var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];
-	var MaxWrong = 10	
+	var NumofGuess = 0
+	var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];			//generate random # to pick from the array of drivers
+	var MaxWrong = 10;	//max number of wrong guesses
+	var WrongLetters; //array to hold wrong letters guessed
 	//debug stuff
 	console.log ("# of drivers " + F1Drivers.length)
 	console.log("random = " + GuessDriver);
-	// console.log("Is e = E" + "e" == "E");
+	
 	var SplitName = GuessDriver.split("!"); 
 	var FirstName = SplitName[0];
 	var LastName = SplitName[1];
@@ -81,9 +82,49 @@
 	var GuessLetters = LastName.split("");
 	console.log("letter = " + GuessLetters);
 // Display the correct number of dashes
+	document.write("Name the Forumula 1 Driver: <br>")
+	document.write(FirstName + "  ")
 	for (i = 0; i < GuessLetters.length; i++) {
 		document.write("_ ")
 	}
+
+//Convert last name to uppercase for comparison purposes
+	var UpperLastName = LastName.toUpperCase();
+	console.log("Upper Case of Last Name " + UpperLastName);
+
+ document.onkeyup = function(event){
+
+		key = document.onkeyup;
+	 	console.log("pushed " + key);
+	 	// key2 = key.toUpperCase()
+ 		//console.log("key pressed = " + key)
+ 		// console.log("pushed " + key)
+
+
+	if (NumofGuess < MaxWrong) {
+		console.log(key)
+		console.log(UpperLastName)
+	 	console.log(UpperLastName.indexOf(key))
+ 		if (UpperLastName.indexOf(key) != -1) {
+ 			// letter is in last name must loop thru for duplicate letters
+ 			for (l = UpperLastName.indexOf(key); l > UpperLastName.lastIndexOf(key); l++){
+ 				//replace _ with letters 
+ 				//for now just console log
+ 				console.log("guessed a correct letter")
+
+ 			}  //end of for
+ 		}  //end of if 
+ 			else {
+ 				NumofGuess++
+ 				//push letter to array of wrong guesses
+ 				console.log("wrong guesses " + NumofGuess)
+ 			}
+ 		}
+
+ 		
+
+
+}
 //Create a function to get key input and update
 
 
@@ -156,6 +197,6 @@
 
 
     </script>
-
+     <!-- need to start working on display -->
   </body>
 </html>
