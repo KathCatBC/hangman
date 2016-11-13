@@ -7,60 +7,150 @@
  	<script type="text/javascript">
 
     // Pick a bootstrap theme from bootswatch
-
+   // <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet">
 
     <!-- My adjustments go here -->
-		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		// <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     
   </script>
   </head>
   <body>
 	<script>
 
-	Theme Formula 1 drivers (current or past champions TBD)
+	// Theme Formula 1 drivers (past & present drivers - past driver)
 
-	Get image for win (checkered flag perhaps)
-	Get image for lose (crashed car perhaps)
-	Get a background image(s)
+	// Get image for win (checkered flag perhaps)
+	// Get image for lose (crashed car perhaps)  
+	// Get a background image(s) (racetrack photo)
+//Plan A
 
-	Create an Array with names (would a 2D array be better?)
-	Create an empty array for wrong letter guesses
-	Generate a random number to pick a name from the Array
-
-
-Screen Display
-
-	put a _ everywhere there should be a letter - remember to deal with spaces
+	// Create an Array with names (2D probably best - Provide the first name - have users guess last name)
 
 
-	Create a display for wrong letters guessed
+	// Plan B - using objects - it was worth staying late Saturday to learn this.
 
+     
 
-	How many wrong choices should the user be allowed before crashing?
+//start with 2 and then add more names
+// 	var F1Drivers = {
+// 		DriverA : {
+// 			FirstName: "Lewis",
+// 			LastName: "HAMILTON"
+// 			//DriverPhoto: if this works consider popping up and image of the driver win or lose
+// 		},  //Don't forget the comma
+// 		DriverB : {
+// 			FirstName: "Nico",
+// 			LastName: "ROSBERG", 
+// 		} 
+// }
 
-	Make sure a user is not penalized for using the wrong cane
-	Will e == E? If not always compare using the same case
-
-
-	Generate a random number to pick a name from the array
-	Display the _ in the proper layout
-
-	Get a letter input from the user
-
-	If it is in the name display it in the correct positions (replace the _ with the letter)
-		Else put the wrong letter in the "wrong letter display and array"
-		
-
-		If wrong letter array length >= max guesses (it should never be > but just in case use > )
-			Then Show Fail Display
-			Prompt to play again
-
-		If user correctly guesses all the letters 
-			Then show win display
-			Prompt to play again
+// Plan C - cannot seem to use a random number to pick from object list maybe you can and I just haven't figued it out/learned it yet
+		// so I will use a 1D array with first and last name separated by !
+		// use random number to pick from array.  use string functions to separate first & last names
 
 
 
+	var F1Drivers = ["Lewis!HAMILTON", "Niki!LAUDA", "Nico!ROSBERG"];
+	// "Sebastian!VETTEL", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
+
+
+
+///  Just work with a few for testing then add the others into the fray
+// F1Drivers = [DriverA, DriverB, DriverC]
+	// var F1Drivers = [DriverA, DriverB, DriverC, DriverD]
+
+	// Generate a random number to decide which name to use
+	// I can't use object because the firstnames are not unique, unless I change how I am doing the arrays
+
+	//part code and part debugging stuff 
+
+	console.log(F1Drivers.length);
+
+	var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];
+	var MaxWrong = 10	
+	//debug stuff
+	console.log ("# of drivers " + F1Drivers.length)
+	console.log("random = " + GuessDriver);
+	// console.log("Is e = E" + "e" == "E");
+	var SplitName = GuessDriver.split("!"); 
+	var FirstName = SplitName[0];
+	var LastName = SplitName[1];
+	console.log("Split = " + SplitName);
+	console.log("first = " + FirstName);
+	console.log("last = " + LastName);
+	var GuessLetters = LastName.split("");
+	console.log("letter = " + GuessLetters);
+// Display the correct number of dashes
+	for (i = 0; i < GuessLetters.length; i++) {
+		document.write("_ ")
+	}
+//Create a function to get key input and update
+
+
+//Get key press info from user
+
+//convert to uppercase
+
+//find it in the GuessLetter string make sure to check for multiple instances of the letter
+
+//if user input in Guess Letter String then
+	// replace _ with letter
+
+//else
+	//increment wrong letter counter and push it into the wrong letter array
+
+//update right and wrong letter displays
+
+
+//Other notes from class thay may be helpful for this project.		
+
+// 		If wrong letter array length >= max guesses (it should never be > but just in case use > )
+// 			Then Show Fail Display
+// 			Prompt to play again
+
+// 		If user correctly guesses all the letters 
+// 			Then show win display
+// 			Prompt to play again
+
+
+
+// var display = document.querySelector("#....") //for id use . for class
+
+
+	//crtl d (multiple select & replace)
+
+//  using console .innerHTML can change HTML document on the screen - not in your actual code
+	
+	//may be useful in this app
+	// function consoleInside(arr)  //where arr is an array
+								//will console out an array it is a function so declare it and then pass the argument
+
+
+// 	
+// 	Create an empty array for wrong letter guesses
+// 	Generate a random number to pick a name from the Array
+
+
+// Screen Display
+
+// 	put a _ everywhere there should be a letter - remember to deal with spaces
+
+// 		If wrong letter array length >= max guesses (it should never be > but just in case use > )
+// 			Then Show Fail Display
+// 			Prompt to play again
+
+// 		If user correctly guesses all the letters 
+// 			Then show win display
+// 			Prompt to play again
+
+// document.write('<br> use string to push <br> html in document.write')
+
+
+// onkeyup functions when the user releases the key 
+	// document.onkeyup = function(event){
+	// 	var key = event.key  // tells me the key the user pressed
+
+	// }
 
 
 
