@@ -119,14 +119,14 @@ var l = 0 //loop counter
  			console.log("number of wrong guesses " + NumofGuess) ;
  			} else {
  				console.log("guessed a correct letter " + key2);
- 				// for (l = 0; l < guessLetters.length; l++) {
- 				// 	console.log("l = " + l)
- 				// 	// if (guessLetters[l] == key2) {
-					// 	// console.log("letter " + key2 + " can be found in position " + l)
+ 				for (l = 0; l < guessLetters.length; l++) {
+ 				 	//console.log("l = " + l)
+ 				 	if (guessLetters[l] == key2) {
+						console.log("letter " + key2 + " can be found in position " + l)
  				// 	// 	//replace _ with letters 
  				// 	// //for now just console log
- 				//  // 	}  //end of if
- 			 // 	}  //end of for
+ 				 	}  //end of if
+ 			 	}  //end of for
  			}  //end of else
  			
  		} // end of if
