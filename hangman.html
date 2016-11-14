@@ -40,7 +40,7 @@
 	// I can't use object because the firstnames are not unique, unless I change how I am doing the arrays
 
 	//part code and part debugging stuff 
-
+var display = document.querySelector("#displayResults");
 var NumofGuess = 0
 var key = "a"; //stores key letter 
 var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG"];
@@ -51,7 +51,8 @@ var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     /
 	var LastName = SplitName[1];
 
 var MaxWrong = 10;	//max number of wrong guesses  could be hardcoded
-var WrongLetters; //array to hold wrong letters guessed
+var wrongLetters = []; //array to hold wrong letters guessed
+var rightLetters= []; //array to hold the right letters
 var l = 0 //loop counter
 	//debug stuff
 
@@ -70,13 +71,37 @@ var l = 0 //loop counter
 	console.log("letter = " + guessLetters);
 // Display the correct number of dashes
 
+
+
+		// "borrowed" this from RPS need to adjust
+      //      function displayResults(whoWon, k, c, imag, snd){
+      //   var string = '<p>' + whoWon + '</p>';
+      //   string += '<p>User chose: ' + k + '<p>';
+      //   string += '<p>Computer chose: ' + c + '<p>';
+      //   string += '<p>Wins: ' + wins; + '</p>';
+      //   string += '<p>Losses: ' + losses; + '</p>';
+      //   string += '<p>Ties: ' + ties; + '</p>';
+      //   string += '<p>Your Guesses: ' + guesses ; + '</p>';
+      //   string += "<img src=" + imag + ">";
+
+      //   display.innerHTML = string;
+      // }
+
+
+
+
+
+
 	document.write("Name the Forumula 1 Driver: <br>")
 	document.write(FirstName + "  ")
 
 	//display the proper number of dashes for lastname
 	for (i = 0; i < guessLetters.length; i++) {
-		document.write("_ ")
+		rightLetters.push("_ ");
+		document.write("_ ");
 	}
+	
+
 
 //Convert last name to uppercase for comparison purposes
 	
@@ -114,15 +139,19 @@ var l = 0 //loop counter
 	 	// This if is failing it is acting like the key is not a string
  		if (guessLetters.indexOf(key2) == -1) {
  			// letter is in last name must loop thru for duplicate letters
- 			console.log("guessed Wrong letter");
+ 			console.log("guessed Wrong letter " + key2);
+ 			wrongLetters.push(key2);
+
  			NumofGuess ++ ;
  			console.log("number of wrong guesses " + NumofGuess) ;
- 			} else {
+ 			} 
+ 			else {
  				console.log("guessed a correct letter " + key2);
  				for (l = 0; l < guessLetters.length; l++) {
  				 	//console.log("l = " + l)
  				 	if (guessLetters[l] == key2) {
-						console.log("letter " + key2 + " can be found in position " + l)
+ 				 		rightLetters[l] = key2;
+						console.log("letter " + key2 + " can be found in position " + l);
  				// 	// 	//replace _ with letters 
  				// 	// //for now just console log
  				 	}  //end of if
@@ -130,8 +159,6 @@ var l = 0 //loop counter
  			}  //end of else
  			
  		} // end of if
-
- 		
 
 
 } //end of function
