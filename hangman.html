@@ -5,11 +5,11 @@
     <title>Hangman</title>
 
  	
-
+// can't use bootstrap when working offline
    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet"> -->
 
 
-   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet">
+ <!--   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet"> -->
 
   <!--  	// My adjustments go here -->
 	 <link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -50,13 +50,6 @@
   </div>
 </div>
 
-<!-- <div class="panel panel-default">
-  <div class="panel-body">
-    Panel content
-  </div>
-  <div class="panel-footer">Panel footer</div>
-</div> -->
-     <!-- need to start working on display -->
 	<script>
 
 	// Theme Formula 1 drivers (past & present drivers - past driver)
@@ -64,6 +57,7 @@
 	// Get image for win (checkered flag perhaps)
 	// Get image for lose (crashed car perhaps)  
 	// Get a background image(s) (racetrack photo)
+	// Tire photos for background???
 
 // Plan C - cannot seem to use a random number to pick from object list maybe you can and I just haven't figued it out/learned it yet
  
@@ -71,7 +65,7 @@ var display = document.querySelector("#displayResults");
 var beCareful = ""
 var NumofGuess = 0;
 var key = "a"; //stores key letter  start with a to prevent meta when loading will be 		replaced as soon as a users presses a key 
-var F1Drivers = ["Lewis!Hamilton", "Niki!Lauda", "Nico!Rosberg", "Sebastian!Vettel", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
+var F1Drivers = ["Lewis!Hamilton", "Niki!Lauda", "Nico!Rosberg", "Sebastian!Vettel", "Nico!Hulkenberg", "Rubens!Barrichello", "Kimi!Raikkonen", "Sergio!Perez", "Felipe!Massa", "Valteri!Bottas", "Fernando!Alonso", "Jenson!Button", "Romain!Grojean", "Daniel!Ricciardo", "Max!Verstappen"];
 var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     
 	// picks a random driver from the array
 	//splits first and last name of random chosen driver
@@ -131,26 +125,49 @@ if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
 }
 	// need to check for an already guessed letter
 	else if (NumofGuess < MaxWrong) { // need to put the else at the bottom 
-		console.log("pushed letter " + key2)
+		console.log("pushed letter " + key2);
+		console.log("Number of Guesses" + NumofGuess);
 	 	//if index of the letter = -1 then it is an incorrect guess
  		if (UpperLastName.indexOf(key2) == -1) {  
- 			// letter is in last name must loop thru for duplicate letters
- 			console.log("guessed Wrong letter " + key2);
- 			wrongLetters.push("" + key2);
- 			NumofGuess ++ ;
+
+
+ 			//check here for duplicate wrong letters since you don't get penalized for duplicate correct letters
+ 			if (wrongLetters.indexOf(key2) != -1) {  //wrong letter has already been guessd
+ 				console.log("already been guessed");
+ 				beCareful = "You already guessed that letter"
+ 			}
+ 			else {
+	 			// letter is in last name must loop thru for duplicate letters
+	 			console.log("guessed Wrong letter " + key2);
+	 			wrongLetters.push("" + key2);
+	 			NumofGuess ++ ;
+	 			console.log("Number of Guesses " + NumofGuess);
+ 			}
+
  			} 
  			else {
  				console.log("guessed a correct letter " + key2);
  				for (l = 0; l < UpperLastName.length; l++) {
  				 	if (UpperLastName[l] == key2) {
  				 		guessLetters[l] = LastName[l];
- 				 		// changed lastname from key
+ 				 		console.log(guessLetters);
  				 	}  //end if
  				 }  //end for
  				 rightLetters = guessLetters.join(" ");
+ 				 console.log("Number of Guesses" + NumofGuess);
  			}  //end of else
  			
- 		} // end of if
+ 		} // end of else if
+ 		console.log("Number of Guesses" + NumofGuess + " Max " + MaxWrong);
+ 		if (NumofGuess === MaxWrong) {  //too many wrong guesses
+ 			beCareful = "<p> Too many wrong guesses the right answer was: </p>"
+ 			beCareful += "<p>" + FirstName + " " + LastName + "</p>"
+
+ 		}
+ 		if (guessLetters.indexOf("_") == -1) {  //you won
+ 			beCareful = "<p> You Won! </p>"
+
+ 		}
 		displayResults()
 
 
