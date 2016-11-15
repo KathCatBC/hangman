@@ -4,17 +4,59 @@
     <meta charset="UTF-8">
     <title>Hangman</title>
 
- 	<script type="text/javascript">
+ 	
 
-    // Pick a bootstrap theme from bootswatch
-   // <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet">
+   <!-- <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet"> -->
 
-    <!-- My adjustments go here -->
-		// <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet">
+
+  <!--  	// My adjustments go here -->
+	 <link rel="stylesheet" type="text/css" href="assets/style.css">
     
+	<script type="text/javascript">
+
   </script>
   </head>
   <body>
+  <h1>Hangman</h1>
+<h2>Name the Formula 1 Driver</h2>
+<!-- <h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+<p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p> -->
+
+<!-- <div class="progress">     -->
+<!--   <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+  <div class="progress-bar progress-bar-warning" style="width: 35%"></div>
+  <div class="progress-bar progress-bar-danger" style="width: 25%"></div>
+</div> -->
+
+
+<!-- <div class="panel panel-default">
+  <div class="panel-body">
+    Basic panel
+  </div>
+</div> -->
+
+<div class="panel panel-default">
+  <div class="panel-heading">"I give you the first name - you guess the last!"</div>
+  <div class="panel-body">
+
+	<div id="displayResults">
+      Game Results Go Here
+    </div>
+  </div>
+</div>
+
+<!-- <div class="panel panel-default">
+  <div class="panel-body">
+    Panel content
+  </div>
+  <div class="panel-footer">Panel footer</div>
+</div> -->
+     <!-- need to start working on display -->
 	<script>
 
 	// Theme Formula 1 drivers (past & present drivers - past driver)
@@ -28,86 +70,53 @@
 		// use random number to pick from array.  use string functions to separate first & last names
 
 
-	// "Sebastian!VETTEL", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
-
-
-
-///  Just work with a few for testing then add the others into the fray
-// F1Drivers = [DriverA, DriverB, DriverC]
-	// var F1Drivers = [DriverA, DriverB, DriverC, DriverD]
-
-	// Generate a random number to decide which name to use
 	// I can't use object because the firstnames are not unique, unless I change how I am doing the arrays
 
 	//part code and part debugging stuff 
 var display = document.querySelector("#displayResults");
-var NumofGuess = 0
-var key = "a"; //stores key letter 
-var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG"];
-var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     // picks a random driver from the array
-//splits first and last name of random chosen driver
+var beCareful = ""
+var NumofGuess = 0;
+var key = "a"; //stores key letter  start with a to prevent meta when loading will be 		replaced as soon as a users presses a key 
+var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG", "Sebastian!VETTEL", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
+var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     
+	// picks a random driver from the array
+	//splits first and last name of random chosen driver
 	var SplitName = GuessDriver.split("!"); 
 	var FirstName = SplitName[0];
 	var LastName = SplitName[1];
 
 var MaxWrong = 10;	//max number of wrong guesses  could be hardcoded
 var wrongLetters = []; //array to hold wrong letters guessed
-var rightLetters= []; //array to hold the right letters
+var guessLetters = []; // 
+var rightLetters = "";
+//var rightLetters = []; //array to hold the right letters in the right position
 var l = 0 //loop counter
-	//debug stuff
+	
 
-	console.log ("# of drivers " + F1Drivers.length)
-	console.log("random = " + GuessDriver);
-	console.log("Split = " + SplitName);
-	console.log("first = " + FirstName);
-	console.log("last = " + LastName);
 	UpperLastName = LastName.toUpperCase();  ////Convert last name to uppercase for comparison purposes
-
-	
-
-	//var guessLetters = LastName.split("");  //splits last name into an arry
-	
-	var guessLetters = LastName
-	console.log("letter = " + guessLetters);
-// Display the correct number of dashes
+	UpperLastName = UpperLastName.split("");  //splits last name into an arry
 
 
+//---------------------warning of duplicate letter
 
 		// "borrowed" this from RPS need to adjust
-      //      function displayResults(whoWon, k, c, imag, snd){
-      //   var string = '<p>' + whoWon + '</p>';
-      //   string += '<p>User chose: ' + k + '<p>';
-      //   string += '<p>Computer chose: ' + c + '<p>';
-      //   string += '<p>Wins: ' + wins; + '</p>';
-      //   string += '<p>Losses: ' + losses; + '</p>';
-      //   string += '<p>Ties: ' + ties; + '</p>';
-      //   string += '<p>Your Guesses: ' + guesses ; + '</p>';
-      //   string += "<img src=" + imag + ">";
+      function displayResults(){       //right now every variable is universal,       
+        var string = '<p>'+ FirstName + " " + rightLetters +'</p><br>';
+           string += '<p>Wrong Letters: ' + wrongLetters; + '</p><br>';
+           string += '<p>Remaining Guesses: ' + (MaxWrong - NumofGuess)  + '</p>';
+      	   string += '<p>' + beCareful + '</p>';
 
-      //   display.innerHTML = string;
-      // }
-
-
-
-
-
-
-	document.write("Name the Forumula 1 Driver: <br>")
-	document.write(FirstName + "  ")
+         display.innerHTML = string;
+      }
 
 	//display the proper number of dashes for lastname
-	for (i = 0; i < guessLetters.length; i++) {
-		rightLetters.push("_ ");
-		document.write("_ ");
+	// using 2 variable 1 string and 1 array for display neatness
+	for (i = 0; i < UpperLastName.length; i++) {
+		rightLetters = rightLetters + "_ ";
+		guessLetters.push("_");
 	}
 	
-
-
-//Convert last name to uppercase for comparison purposes
-	
-
- 	console.log("Upper Case of Last Name " + guessLetters);
-
+ 	displayResults() //update display with game info
 
 // get a letter from the user to start checking
  document.onkeyup = function(event){
@@ -115,69 +124,49 @@ var l = 0 //loop counter
 
  		key = event.key;
 	 	console.log("pushed " + key);
+	 	var key2 = key.toUpperCase();
+	 	beCareful = "" //clear it to null 
 	 	// key2 = key.toUpperCase()
  		//console.log("key pressed = " + key)
  		// console.log("pushed " + key)
 
  	 // key = event.key
-	if (NumofGuess < MaxWrong) {
-		
-		var key2 = key.toUpperCase()
-		//var key2 = key
-
-		//key2 = key2.toUpperCase()
+	
+if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
+	beCareful = "Warning:  You must select a letter"
+}
+	// need to check for an already guessed letter
+	else if (NumofGuess < MaxWrong) { // need to put the else at the bottom 
 		console.log("pushed letter " + key2)
-	 	
-
-	 	// After checking the letter need check to see if the user won!!!
-	 	// Need to check if the letter has been used already
-
-	 	// Need to check for non letter keys being pressed
-
 	 	//if index of the letter = -1 then it is an incorrect guess
-
-	 	// This if is failing it is acting like the key is not a string
- 		if (guessLetters.indexOf(key2) == -1) {
+ 		if (UpperLastName.indexOf(key2) == -1) {  
  			// letter is in last name must loop thru for duplicate letters
  			console.log("guessed Wrong letter " + key2);
- 			wrongLetters.push(key2);
-
+ 			wrongLetters.push("" + key2);
  			NumofGuess ++ ;
- 			console.log("number of wrong guesses " + NumofGuess) ;
  			} 
  			else {
  				console.log("guessed a correct letter " + key2);
- 				for (l = 0; l < guessLetters.length; l++) {
- 				 	//console.log("l = " + l)
- 				 	if (guessLetters[l] == key2) {
- 				 		rightLetters[l] = key2;
-						console.log("letter " + key2 + " can be found in position " + l);
- 				// 	// 	//replace _ with letters 
- 				// 	// //for now just console log
- 				 	}  //end of if
- 			 	}  //end of for
+ 				for (l = 0; l < UpperLastName.length; l++) {
+ 				 	if (UpperLastName[l] == key2) {
+ 				 		guessLetters[l] = key2;
+ 				 		console.log(guessLetters);
+ 				 	}  //end if
+ 				 }  //end for
+ 				 rightLetters = guessLetters.join(" ");
  			}  //end of else
  			
  		} // end of if
-
-
+		displayResults()
+ 		//check to see if user won or lost
 } //end of function
 
  // end of function
-//Create a function to get key input and update
 
 
-//Get key press info from user
-
-//convert to uppercase
-
-//find it in the GuessLetter string make sure to check for multiple instances of the letter
 
 //if user input in Guess Letter String then
 	// replace _ with letter
-
-//else
-	//increment wrong letter counter and push it into the wrong letter array
 
 //update right and wrong letter displays
 
@@ -194,8 +183,7 @@ var l = 0 //loop counter
 
 
 
-// var display = document.querySelector("#....") //for id use . for class
-
+// var display = document.querySelector("#....") //use (# for id)  (. for class)
 
 	//crtl d (multiple select & replace)
 
@@ -206,14 +194,9 @@ var l = 0 //loop counter
 								//will console out an array it is a function so declare it and then pass the argument
 
 
-// 	
-// 	Create an empty array for wrong letter guesses
-// 	Generate a random number to pick a name from the Array
-
 
 // Screen Display
 
-// 	put a _ everywhere there should be a letter - remember to deal with spaces
 
 // 		If wrong letter array length >= max guesses (it should never be > but just in case use > )
 // 			Then Show Fail Display
@@ -236,6 +219,5 @@ var l = 0 //loop counter
 
 
     </script>
-     <!-- need to start working on display -->
   </body>
 </html>
