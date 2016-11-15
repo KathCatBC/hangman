@@ -24,8 +24,8 @@
 <!-- <h3>Heading 3</h3>
 <h4>Heading 4</h4>
 <h5>Heading 5</h5>
-<h6>Heading 6</h6>
-<p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p> -->
+<h6>Heading 6</h6>  -->
+
 
 <!-- <div class="progress">     -->
 <!--   <div class="progress-bar progress-bar-success" style="width: 40%"></div>
@@ -66,18 +66,12 @@
 	// Get a background image(s) (racetrack photo)
 
 // Plan C - cannot seem to use a random number to pick from object list maybe you can and I just haven't figued it out/learned it yet
-		// so I will use a 1D array with first and last name separated by !
-		// use random number to pick from array.  use string functions to separate first & last names
-
-
-	// I can't use object because the firstnames are not unique, unless I change how I am doing the arrays
-
-	//part code and part debugging stuff 
+ 
 var display = document.querySelector("#displayResults");
 var beCareful = ""
 var NumofGuess = 0;
 var key = "a"; //stores key letter  start with a to prevent meta when loading will be 		replaced as soon as a users presses a key 
-var F1Drivers = ["Lewis!Hamilton", "Niki!LAUDA", "Nico!ROSBERG", "Sebastian!VETTEL", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
+var F1Drivers = ["Lewis!Hamilton", "Niki!Lauda", "Nico!Rosberg", "Sebastian!Vettel", "Nico!HULKENBERG", "Rubens!BARRICHELLO"];
 var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     
 	// picks a random driver from the array
 	//splits first and last name of random chosen driver
@@ -95,15 +89,15 @@ var l = 0 //loop counter
 
 	UpperLastName = LastName.toUpperCase();  ////Convert last name to uppercase for comparison purposes
 	UpperLastName = UpperLastName.split("");  //splits last name into an arry
-
+	LastName = LastName.split("");
 
 //---------------------warning of duplicate letter
 
 		// "borrowed" this from RPS need to adjust
       function displayResults(){       //right now every variable is universal,       
-        var string = '<p>'+ FirstName + " " + rightLetters +'</p><br>';
-           string += '<p>Wrong Letters: ' + wrongLetters; + '</p><br>';
-           string += '<p>Remaining Guesses: ' + (MaxWrong - NumofGuess)  + '</p>';
+        var string = '<p><h4>'+ FirstName + '  ' + rightLetters +'</h4></p><br>';
+           string += '<p><h5> Wrong Letters: ' + wrongLetters; + '<h5></p><br>';
+           string += '<p><h5> Remaining Guesses: ' + (MaxWrong - NumofGuess)  + '<h5></p>';
       	   string += '<p>' + beCareful + '</p>';
 
          display.innerHTML = string;
@@ -149,8 +143,8 @@ if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
  				console.log("guessed a correct letter " + key2);
  				for (l = 0; l < UpperLastName.length; l++) {
  				 	if (UpperLastName[l] == key2) {
- 				 		guessLetters[l] = key2;
- 				 		console.log(guessLetters);
+ 				 		guessLetters[l] = LastName[l];
+ 				 		// changed lastname from key
  				 	}  //end if
  				 }  //end for
  				 rightLetters = guessLetters.join(" ");
@@ -158,18 +152,10 @@ if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
  			
  		} // end of if
 		displayResults()
+
+
  		//check to see if user won or lost
 } //end of function
-
- // end of function
-
-
-
-//if user input in Guess Letter String then
-	// replace _ with letter
-
-//update right and wrong letter displays
-
 
 //Other notes from class thay may be helpful for this project.		
 
@@ -185,36 +171,13 @@ if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
 
 // var display = document.querySelector("#....") //use (# for id)  (. for class)
 
-	//crtl d (multiple select & replace)
 
-//  using console .innerHTML can change HTML document on the screen - not in your actual code
-	
-	//may be useful in this app
-	// function consoleInside(arr)  //where arr is an array
-								//will console out an array it is a function so declare it and then pass the argument
-
-
-
-// Screen Display
-
-
-// 		If wrong letter array length >= max guesses (it should never be > but just in case use > )
 // 			Then Show Fail Display
 // 			Prompt to play again
 
 // 		If user correctly guesses all the letters 
 // 			Then show win display
 // 			Prompt to play again
-
-// document.write('<br> use string to push <br> html in document.write')
-
-
-// onkeyup functions when the user releases the key 
-	// document.onkeyup = function(event){
-	// 	var key = event.key  // tells me the key the user pressed
-
-	// }
-
 
 
 
