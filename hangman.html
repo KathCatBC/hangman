@@ -5,11 +5,8 @@
     <title>Hangman</title>
 
  	
-// can't use bootstrap when working offline
-   <!-- <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet"> -->
-
-
- <!--   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet"> -->
+<!-- // can't use bootstrap when working offline -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet">
 
   <!--  	// My adjustments go here -->
 	 <link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -19,49 +16,39 @@
   </script>
   </head>
   <body>
-  <h1>Hangman</h1>
-<h2>Name the Formula 1 Driver</h2>
-<!-- <h3>Heading 3</h3>
-<h4>Heading 4</h4>
-<h5>Heading 5</h5>
-<h6>Heading 6</h6>  -->
+  <h2>Hangman</h2>
+<h3>Name the Formula 1 Driver</h3>
 
-
-<!-- <div class="progress">     -->
-<!--   <div class="progress-bar progress-bar-success" style="width: 40%"></div>
-  <div class="progress-bar progress-bar-warning" style="width: 35%"></div>
-  <div class="progress-bar progress-bar-danger" style="width: 25%"></div>
-</div> -->
-
-
-<!-- <div class="panel panel-default">
-  <div class="panel-body">
-    Basic panel
+<div class="panel panel-default panelalign">
+  <div class="panel-heading headingtxt">
+ 	<div class="headingtxt">I give you the first name - you guess the last!</div>
   </div>
-</div> -->
-
-<div class="panel panel-default">
-  <div class="panel-heading">"I give you the first name - you guess the last!"</div>
   <div class="panel-body">
 
 	<div id="displayResults">
       Game Results Go Here
     </div>
+   
+
   </div>
 </div>
 
-	<script>
 
-	// Theme Formula 1 drivers (past & present drivers - past driver)
+<!-- <div class="panel panel-default">
+  <div class="panel-body"> -->
+  	<div id="wonlostphoto">
+		<!-- photo goes here -->
+    </div>
+ <!--  </div>
+</div> -->
 
-	// Get image for win (checkered flag perhaps)
-	// Get image for lose (crashed car perhaps)  
-	// Get a background image(s) (racetrack photo)
-	// Tire photos for background???
 
-// Plan C - cannot seem to use a random number to pick from object list maybe you can and I just haven't figued it out/learned it yet
- 
+<script>
+
+
+var display = document.querySelector("#wonlostphoto");
 var display = document.querySelector("#displayResults");
+
 var beCareful = ""
 var NumofGuess = 0;
 var key = "a"; //stores key letter  start with a to prevent meta when loading will be 		replaced as soon as a users presses a key 
@@ -79,23 +66,52 @@ var guessLetters = []; //
 var rightLetters = "";
 //var rightLetters = []; //array to hold the right letters in the right position
 var l = 0 //loop counter
+var wlsstatus = "";
+// var wonphoto = "assets/images/trophy.png"
+// var lostphoto = 
+
 	
 
 	UpperLastName = LastName.toUpperCase();  ////Convert last name to uppercase for comparison purposes
 	UpperLastName = UpperLastName.split("");  //splits last name into an arry
 	LastName = LastName.split("");
 
-//---------------------warning of duplicate letter
 
-		// "borrowed" this from RPS need to adjust
-      function displayResults(){       //right now every variable is universal,       
-        var string = '<p><h4>'+ FirstName + '  ' + rightLetters +'</h4></p><br>';
-           string += '<p><h5> Wrong Letters: ' + wrongLetters; + '<h5></p><br>';
-           string += '<p><h5> Remaining Guesses: ' + (MaxWrong - NumofGuess)  + '<h5></p>';
+
+      function displayResults(){       //right now every variable is global - no need to pass anything,       
+        var string = '<p><h5>'+ FirstName + '  ' + rightLetters +'</h5></p><br>';
+           string += '<p><h6> Wrong Letters: ' + wrongLetters; + '<h6></p><br>';
+           string += '<p><h6> Remaining Guesses: ' + (MaxWrong - NumofGuess)  + '<h6></p>';
       	   string += '<p>' + beCareful + '</p>';
 
          display.innerHTML = string;
       }
+
+
+ 		function wonlostphoto(){
+       
+ 			var showphoto = ""
+        if (wlsstatus == "lost") {
+
+        	showphoto = "lost";  //get this to work with a bit of text before trying photos
+        	
+        	// showphoto = "<img src="assets/images/crash2.jpg" alt="Tires" width="400" height="200">"
+        	// showphoto = "<img src='assets/images/crash2.jpg'>";
+        }
+        else if (wlsstatus == "won") {
+        	showphoto = "you won";
+        	// showphoto = "You Won! <br>";
+        	// showphoto += "<img src=assets/images/trophy.png>";
+        	// showphoto += "Where is my ^&*() photo";
+        	// showphoto = "<img src='assets/images/trophy.png'>"
+        }
+        else{
+        	showphoto = "status start"
+        	// showphoto = "<img src='assets/images/pirelli.jpg'>";
+        }
+        display.innerHTML = showphoto;
+      }
+
 
 	//display the proper number of dashes for lastname
 	// using 2 variable 1 string and 1 array for display neatness
@@ -120,20 +136,18 @@ var l = 0 //loop counter
 
  	 // key = event.key
 	
-if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
+if (key2 < "A" || key2 > "Z" || key2 == "SHIFT" || key2 == "CONTROL" || key2 == "ALT" || key2 == "BACKSPACE" || key2 == "ESCAPE") {			//check to make sure a letter was input.
+	//for some reason shift ctrl and alt backspace & ESC fail the A to Z test
 	beCareful = "Warning:  You must select a letter"
-}
-	// need to check for an already guessed letter
-	else if (NumofGuess < MaxWrong) { // need to put the else at the bottom 
+	}
+	else if (NumofGuess < MaxWrong) { 
 		console.log("pushed letter " + key2);
 		console.log("Number of Guesses" + NumofGuess);
 	 	//if index of the letter = -1 then it is an incorrect guess
  		if (UpperLastName.indexOf(key2) == -1) {  
-
-
- 			//check here for duplicate wrong letters since you don't get penalized for duplicate correct letters
+		//check here for duplicate wrong letters since you don't get penalized for duplicate correct letters
  			if (wrongLetters.indexOf(key2) != -1) {  //wrong letter has already been guessd
- 				console.log("already been guessed");
+ 				// console.log("already been guessed");
  				beCareful = "You already guessed that letter"
  			}
  			else {
@@ -150,22 +164,26 @@ if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
  				for (l = 0; l < UpperLastName.length; l++) {
  				 	if (UpperLastName[l] == key2) {
  				 		guessLetters[l] = LastName[l];
- 				 		console.log(guessLetters);
+ 				 		// console.log(guessLetters);
  				 	}  //end if
  				 }  //end for
  				 rightLetters = guessLetters.join(" ");
- 				 console.log("Number of Guesses" + NumofGuess);
+ 				 // console.log("Number of Guesses" + NumofGuess);
  			}  //end of else
  			
  		} // end of else if
- 		console.log("Number of Guesses" + NumofGuess + " Max " + MaxWrong);
+ 		// console.log("Number of Guesses" + NumofGuess + " Max " + MaxWrong);
  		if (NumofGuess === MaxWrong) {  //too many wrong guesses
- 			beCareful = "<p> Too many wrong guesses the right answer was: </p>"
- 			beCareful += "<p>" + FirstName + " " + LastName + "</p>"
+ 			beCareful = "<p> Too many wrong guesses the right answer was: </p>";
+ 			beCareful += "<p>" + FirstName + " " + SplitName[1] + "</p>";
+ 			wlsstatus = "lost";
+ 			wonlostphoto();
 
  		}
  		if (guessLetters.indexOf("_") == -1) {  //you won
- 			beCareful = "<p> You Won! </p>"
+ 			beCareful = "<p> You Won! </p>";
+ 			wlsstatus = "won";
+ 			wonlostphoto();
 
  		}
 		displayResults()
@@ -174,28 +192,7 @@ if (key2 < "A" || key2 > "Z") {			//check to make sure a letter was input.
  		//check to see if user won or lost
 } //end of function
 
-//Other notes from class thay may be helpful for this project.		
-
-// 		If wrong letter array length >= max guesses (it should never be > but just in case use > )
-// 			Then Show Fail Display
-// 			Prompt to play again
-
-// 		If user correctly guesses all the letters 
-// 			Then show win display
-// 			Prompt to play again
-
-
-
 // var display = document.querySelector("#....") //use (# for id)  (. for class)
-
-
-// 			Then Show Fail Display
-// 			Prompt to play again
-
-// 		If user correctly guesses all the letters 
-// 			Then show win display
-// 			Prompt to play again
-
 
 
     </script>

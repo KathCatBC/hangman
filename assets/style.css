@@ -13,7 +13,31 @@ body {
 	/*font-family:  'Georgia', Times, Times New Roman, serif;*/
 }
 
+h2 {
+	text-align: center;
+}
 
+h3 {
+	text-align: center;
+}
+
+#displayResults {
+	width: 50%;
+	float: left;
+}
+.panelalign {
+	margin: 0px 50px 0px 50px;
+	padding: 0px 50px 0px 50px;
+}
+
+.statusalign {
+	margin: 0px 50px 0px 50px;
+}
+.headingtxt {
+	font-weight: bold;
+	font-size: 15px;
+	color: white;
+}
 
 .footerset {
 	font-family: sans-serif;
