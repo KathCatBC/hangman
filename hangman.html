@@ -78,7 +78,7 @@ var wlsstatus = "";
 	UpperLastName = UpperLastName.split("");  //splits last name into an arry
 	LastName = LastName.split("");
 
- 	display2.innerHTML = "<img src='assets/images/pirelli.jpg' height = '200px' width = '400px'>";
+ 	display2.innerHTML = "<img src='assets/images/pirelli.jpg'  alt='tires' height='200px' width='400px'>";
 
       function displayResults(){       //right now every variable is global - no need to pass anything,       
         var string = '<p><h5>'+ FirstName + '  ' + rightLetters +'</h5></p><br>';
@@ -95,12 +95,12 @@ var wlsstatus = "";
 
         	if (wlsstatus == "lost") {
         		showphoto = "<p><h4> You Lost! </h4></p>";
-        		showphoto += "<img src='assets/images/crash2.jpg' width='500px' height='350px'>";
+        		showphoto += "<img src='assets/images/crash2.jpg' width='500px' height='350px' alt='crash'>";
         	}
         	else {
         		console.log("wonlostphoto - won");
         		showphoto = "<p><h4> You Won! </h4></p>";
-        		showphoto += "<img src='assets/images/trophy.png'>";
+        		showphoto += "<img src='assets/images/trophy.png' alt='trophy'>";
         	}
         	display2.innerHTML = showphoto;
       	}
