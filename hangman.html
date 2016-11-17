@@ -17,7 +17,7 @@
   </head>
   <body>
   <h2>Hangman</h2>
-<h3>Name the Formula 1 Driver</h3>
+<h3>Name the Formula 1 Driver (Past and Present)</h3>
 <div class="container-fluid">
   	<div class="row">
   	<div class="col-md-6">
@@ -38,13 +38,8 @@
     	</div>
     </div>
   	
-  	</div>
+  </div>
 </div>
-
-
-
-
-
 
 <script>
 
@@ -55,7 +50,7 @@ var display = document.querySelector("#displayResults");
 var beCareful = "<br>"  //used a br for spacing purposes
 var NumofGuess = 0;
 var key = "a"; //stores key letter  start with a to prevent meta when loading will be 		replaced as soon as a users presses a key 
-var F1Drivers = ["Lewis!Hamilton", "Niki!Lauda", "Nico!Rosberg", "Sebastian!Vettel", "Nico!Hulkenberg", "Rubens!Barrichello", "Kimi!Raikkonen", "Sergio!Perez", "Felipe!Massa", "Valteri!Bottas", "Fernando!Alonso", "Jenson!Button", "Romain!Grojean", "Daniel!Ricciardo", "Max!Verstappen"];
+var F1Drivers = ["Lewis!Hamilton", "Esteban!Gutierrez", "Esteban!Ocon", "Pascal!Wehrlein", "Nico!Rosberg", "Sebastian!Vettel", "Nico!Hulkenberg", "Kimi!Raikkonen", "Sergio!Perez", "Felipe!Massa", "Valteri!Bottas", "Fernando!Alonso", "Jenson!Button", "Romain!Grojean", "Daniel!Ricciardo", "Max!Verstappen", "Kevin!Magnussen", "Jolyon!Palmer", "Marcus!Ericsson", "Felipe!Nasr", "Daniil!Kvyat", "Carlos!Sainz", "Aryton!Senna", "Michael!Schumacher", "Alain!Prost", "Nigel!Mansel", "Niki!Lauda", "Mario!Andretti", "Jackie!Stewart", "Rubens!Barrichello", "James!Hunt", "Mark!Webber", "Emerson!Fittipaldi"];
 var GuessDriver = F1Drivers[Math.floor(Math.random() * F1Drivers.length)];     
 	// picks a random driver from the array
 	//splits first and last name of random chosen driver
@@ -72,7 +67,18 @@ var l = 0 //loop counter
 var wlsstatus = "";
 
 
-	
+
+
+	//   For debugging purposes to check all the names in the array
+	// for (i=0; i<F1Drivers.length; i++){
+	// 	var dGuessDriver = F1Drivers[i];
+	// 	var dSplitName = dGuessDriver.split("!"); 
+	// 	var dFirstName = dSplitName[0];
+	// 	var dLastName = dSplitName[1];
+	// 	console.log("First = " + dFirstName + " Last = " + dLastName);
+
+	// }
+
 
 	UpperLastName = LastName.toUpperCase();  ////Convert last name to uppercase for comparison purposes
 	UpperLastName = UpperLastName.split("");  //splits last name into an arry
@@ -174,7 +180,7 @@ if (key2 < "A" || key2 > "Z" || key2 == "SHIFT" || key2 == "CONTROL" || key2 == 
 		displayResults()
 
 
- 		//check to see if user won or lost
+ 		
 } //end of function
 
 // var display = document.querySelector("#....") //use (# for id)  (. for class)
