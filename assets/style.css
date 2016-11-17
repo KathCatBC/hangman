@@ -27,11 +27,16 @@ h3 {
 }
 .panelalign {
 	margin: 0px 50px 0px 50px;
-	padding: 0px 50px 0px 50px;
+	/*padding: 0px 5px 0px 5px;*/
 }
 
 .statusalign {
 	margin: 0px 50px 0px 50px;
+}
+
+#wonlostphoto {
+	text-align: center;
+	color: white;
 }
 
 .headingtxt {

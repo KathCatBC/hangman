@@ -18,38 +18,41 @@
   <body>
   <h2>Hangman</h2>
 <h3>Name the Formula 1 Driver</h3>
-
-<div class="panel panel-default panelalign">
-  <div class="panel-heading headingtxt">
- 	<div class="headingtxt">I give you the first name - you guess the last!</div>
-  </div>
-  <div class="panel-body">
-
-	<div id="displayResults">
-      Game Results Go Here
+<div class="container-fluid">
+  	<div class="row">
+  	<div class="col-md-6">
+  		<div class="panel panel-default panelalign">
+ 			<div class="panel-heading headingtxt">
+ 				<div class="headingtxt">I give you the first name - you guess the last!</div>
+  			</div>
+  			<div class="panel-body">
+				<div id="displayResults">
+      				Game Results Go Here
+    			</div>
+   			</div>
+		</div>
+  	</div>
+  	<div class="col-md-6">
+  		<div id="wonlostphoto">
+		<!-- photo goes here -->
+    	</div>
     </div>
-   
-
-  </div>
+  	
+  	</div>
 </div>
 
 
-<!-- <div class="panel panel-default">
-  <div class="panel-body"> -->
-  	<div id="wonlostphoto">
-		<!-- photo goes here -->
-    </div>
- <!--  </div>
-</div> -->
+
+
 
 
 <script>
 
 
-var display = document.querySelector("#wonlostphoto");
+var display2 = document.querySelector("#wonlostphoto");
 var display = document.querySelector("#displayResults");
 
-var beCareful = ""
+var beCareful = "<br>"  //used a br for spacing purposes
 var NumofGuess = 0;
 var key = "a"; //stores key letter  start with a to prevent meta when loading will be 		replaced as soon as a users presses a key 
 var F1Drivers = ["Lewis!Hamilton", "Niki!Lauda", "Nico!Rosberg", "Sebastian!Vettel", "Nico!Hulkenberg", "Rubens!Barrichello", "Kimi!Raikkonen", "Sergio!Perez", "Felipe!Massa", "Valteri!Bottas", "Fernando!Alonso", "Jenson!Button", "Romain!Grojean", "Daniel!Ricciardo", "Max!Verstappen"];
@@ -67,8 +70,7 @@ var rightLetters = "";
 //var rightLetters = []; //array to hold the right letters in the right position
 var l = 0 //loop counter
 var wlsstatus = "";
-// var wonphoto = "assets/images/trophy.png"
-// var lostphoto = 
+
 
 	
 
@@ -76,7 +78,7 @@ var wlsstatus = "";
 	UpperLastName = UpperLastName.split("");  //splits last name into an arry
 	LastName = LastName.split("");
 
-
+ 	display2.innerHTML = "<img src='assets/images/pirelli.jpg' height = '200px' width = '400px'>";
 
       function displayResults(){       //right now every variable is global - no need to pass anything,       
         var string = '<p><h5>'+ FirstName + '  ' + rightLetters +'</h5></p><br>';
@@ -89,28 +91,19 @@ var wlsstatus = "";
 
 
  		function wonlostphoto(){
-       
- 			var showphoto = ""
-        if (wlsstatus == "lost") {
+ 			var showphoto = "";
 
-        	showphoto = "lost";  //get this to work with a bit of text before trying photos
-        	
-        	// showphoto = "<img src="assets/images/crash2.jpg" alt="Tires" width="400" height="200">"
-        	// showphoto = "<img src='assets/images/crash2.jpg'>";
-        }
-        else if (wlsstatus == "won") {
-        	showphoto = "you won";
-        	// showphoto = "You Won! <br>";
-        	// showphoto += "<img src=assets/images/trophy.png>";
-        	// showphoto += "Where is my ^&*() photo";
-        	// showphoto = "<img src='assets/images/trophy.png'>"
-        }
-        else{
-        	showphoto = "status start"
-        	// showphoto = "<img src='assets/images/pirelli.jpg'>";
-        }
-        display.innerHTML = showphoto;
-      }
+        	if (wlsstatus == "lost") {
+        		showphoto = "<p><h4> You Lost! </h4></p>";
+        		showphoto += "<img src='assets/images/crash2.jpg' width='500px' height='350px'>";
+        	}
+        	else {
+        		console.log("wonlostphoto - won");
+        		showphoto = "<p><h4> You Won! </h4></p>";
+        		showphoto += "<img src='assets/images/trophy.png'>";
+        	}
+        	display2.innerHTML = showphoto;
+      	}
 
 
 	//display the proper number of dashes for lastname
@@ -124,20 +117,15 @@ var wlsstatus = "";
 
 // get a letter from the user to start checking
  document.onkeyup = function(event){
-
-
  		key = event.key;
 	 	console.log("pushed " + key);
 	 	var key2 = key.toUpperCase();
-	 	beCareful = "" //clear it to null 
-	 	// key2 = key.toUpperCase()
- 		//console.log("key pressed = " + key)
- 		// console.log("pushed " + key)
-
- 	 // key = event.key
+	 	beCareful = "<br>" //clear it null + br so the spacing is consistent 
+	 	
 	
-if (key2 < "A" || key2 > "Z" || key2 == "SHIFT" || key2 == "CONTROL" || key2 == "ALT" || key2 == "BACKSPACE" || key2 == "ESCAPE") {			//check to make sure a letter was input.
-	//for some reason shift ctrl and alt backspace & ESC fail the A to Z test
+if (key2 < "A" || key2 > "Z" || key2 == "SHIFT" || key2 == "CONTROL" || key2 == "ALT" || key2 == "BACKSPACE" || key2 == "ESCAPE") {			
+	//check to make sure a letter was input.
+	//for some reason shift ctrl and alt backspace & ESC  etc. fail the A to Z test
 	beCareful = "Warning:  You must select a letter"
 	}
 	else if (NumofGuess < MaxWrong) { 
@@ -146,14 +134,13 @@ if (key2 < "A" || key2 > "Z" || key2 == "SHIFT" || key2 == "CONTROL" || key2 == 
 	 	//if index of the letter = -1 then it is an incorrect guess
  		if (UpperLastName.indexOf(key2) == -1) {  
 		//check here for duplicate wrong letters since you don't get penalized for duplicate correct letters
- 			if (wrongLetters.indexOf(key2) != -1) {  //wrong letter has already been guessd
- 				// console.log("already been guessed");
+ 			if (wrongLetters.indexOf(key2) != -1) {  
+ 				//wrong letter has already been guessd
  				beCareful = "You already guessed that letter"
  			}
  			else {
-	 			// letter is in last name must loop thru for duplicate letters
 	 			console.log("guessed Wrong letter " + key2);
-	 			wrongLetters.push("" + key2);
+	 			wrongLetters.push(key2);
 	 			NumofGuess ++ ;
 	 			console.log("Number of Guesses " + NumofGuess);
  			}
@@ -164,15 +151,13 @@ if (key2 < "A" || key2 > "Z" || key2 == "SHIFT" || key2 == "CONTROL" || key2 == 
  				for (l = 0; l < UpperLastName.length; l++) {
  				 	if (UpperLastName[l] == key2) {
  				 		guessLetters[l] = LastName[l];
- 				 		// console.log(guessLetters);
  				 	}  //end if
  				 }  //end for
  				 rightLetters = guessLetters.join(" ");
- 				 // console.log("Number of Guesses" + NumofGuess);
  			}  //end of else
  			
  		} // end of else if
- 		// console.log("Number of Guesses" + NumofGuess + " Max " + MaxWrong);
+ 		
  		if (NumofGuess === MaxWrong) {  //too many wrong guesses
  			beCareful = "<p> Too many wrong guesses the right answer was: </p>";
  			beCareful += "<p>" + FirstName + " " + SplitName[1] + "</p>";
